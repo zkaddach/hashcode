@@ -16,6 +16,8 @@ class Rides
     private :
 
         int m_distance;
+        int m_tempsTrajet;
+        int m_retardPossible;
         int m_a;
         int m_b;
         int m_x;
@@ -23,6 +25,7 @@ class Rides
         int m_earliest;
         int m_finish;
         int m_i;
+
 
     friend void sortRides(std::vector<Rides>& Tab, int debut, int fin);
     friend void echanger(std::vector<Rides>& tableau, int a, int b);
