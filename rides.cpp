@@ -1,6 +1,6 @@
 #include "rides.h"
 
-
+using namespace std;
 
 Rides::Rides(int a, int b, int x, int y, int e, int f, int i) : m_a(a), m_b(b), m_x(x), m_y(y), m_earliest(e), m_finish(f), m_i(i)
 {
@@ -38,3 +38,46 @@ Rides& Rides::operator=(const Rides& b)
 
     return *this;
 }
+
+
+
+
+
+void echanger(vector<Rides>& tableau, int a, int b)
+{
+  Rides tmp(0,0,0,0,0,0,0);
+  tmp = tableau[a];
+  tableau[a] = tableau[b];
+  tableau[b]= tmp;
+}
+
+
+void sortRides(vector<Rides>& Tab, int debut, int fin)
+{
+    int gauche = debut-1;
+    int droite = fin+1;
+    const int pivot = Tab[debut].m_earliest;
+
+    if(debut >= fin)
+
+        return;
+
+    while(1)
+    {
+        do droite--; while(Tab[droite].m_earliest > pivot);
+        do gauche++; while(Tab[gauche].m_earliest < pivot);
+
+        if(gauche < droite)
+            echanger(Tab, gauche, droite);
+
+        else break;
+
+    }
+    sortRides(Tab, debut, droite);
+
+    sortRides(Tab, droite+1, fin);
+
+}
+
+
+//Rides r(b.m_a,b.m_b,b.m_x, b.m_y, b.m_earliest, b.m_finish, b.m_i);
