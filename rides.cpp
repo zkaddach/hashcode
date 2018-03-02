@@ -41,7 +41,8 @@ Rides& Rides::operator=(const Rides& b)
     m_i = b.m_i;
     m_x = b.m_x;
     m_y = b.m_y;
-
+    m_tempsTrajet = b.m_tempsTrajet;
+    m_retardPossible = b.m_retardPossible;
     return *this;
 }
 

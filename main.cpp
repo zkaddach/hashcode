@@ -3,8 +3,6 @@
 using namespace std;
 
 
-
-
 int main()
 {
     string adr_file = "d_metropolis.in";
