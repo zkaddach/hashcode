@@ -1,4 +1,3 @@
-
 #include "rides.h"
 using namespace std;
 
@@ -25,14 +24,16 @@ int main()
         array_rides.push_back(newR);
     }
 
-    for (int i = 0; i < rides ; i++)
-        array_rides[i].afficher();
+    /*for (int i = 0; i < rides ; i++)
+        array_rides[i].afficher();*/
     Rides newR2(0,0,0,0,0,0,0);
     newR2 = array_rides[0];
-    sortRides(array_rides, 0 , rides-1);
+    //sortRides(array_rides, 0 , rides-1);
     cout << endl;
-    for (int i = 0; i < rides ; i++)
+    for (int i = 0; i < 100 ; i++)
         array_rides[i].afficher();
+
+    pathFinding(array_rides, 2);
 
     return 0;
 }
