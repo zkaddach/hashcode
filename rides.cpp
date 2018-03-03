@@ -107,7 +107,7 @@ vector< vector<Rides> > pathFinding(vector<Rides> tabRides, int limTemps, int ri
     for (int i = 0; i < rides ; i++)
         tabRides[i].afficher();
 
-    while (cond2==true && (tabRides.size() != 0))
+    while (cond2 && (tabRides.size() != 0))
     {
         cout << "a\n";
         k++;    // compteur de ligne
@@ -173,5 +173,8 @@ vector< vector<Rides> > pathFinding(vector<Rides> tabRides, int limTemps, int ri
         path[k][0].afficher();
         cond = true;
     }
+
+    cout <<"salut\n";
+
     return path;
 }
