@@ -4,7 +4,7 @@ using namespace std;
 
 int main()
 {
-    string adr_file = "d_metropolis.in";
+    string adr_file = "b_should_be_easy.in";
     ifstream file(adr_file.c_str());
 
     //Loading header
@@ -30,14 +30,21 @@ int main()
     newR2 = array_rides[0];
     //sortRides(array_rides, 0 , rides-1);
     cout << endl;
-    for (int i = 0; i < 100 ; i++)
-        array_rides[i].afficher();
+    /*for (int i = 0; i < array_rides.size() ; i++)
+        array_rides[i].afficher();*/
 
-<<<<<<< HEAD
+
    // pathFinding(array_rides, 2);
-=======
->>>>>>> 6f0acb6d4dbe87914f05eacd409962442e7a58d8
 
+    std::vector< std::vector<Rides> > paths;
+
+    paths.push_back(vector<Rides> (1));
+    paths.push_back(vector<Rides> (1));
+    paths[0][0] = (array_rides[1]);
+    paths[0].push_back(array_rides[2]);
+    paths[1][0] = array_rides[0];
+
+    carFinder(paths, 2);
     return 0;
 }
 

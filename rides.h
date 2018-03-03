@@ -6,12 +6,7 @@
 #include <math.h>
 #include <vector>
 
-typedef struct Car
-{
-  int x;
-  int y;
-  int time;
-};
+typedef struct Car Car;
 
 class Rides
 {
@@ -39,8 +34,19 @@ class Rides
     friend void sortRides(std::vector<Rides>& Tab, int debut, int fin);
     friend void echanger(std::vector<Rides>& tableau, int a, int b);
     friend std::vector< std::vector<Rides> > pathFinding(std::vector<Rides> tabRides, int limTemps);
-    friend int **carFinder(std::vector< std::vector<Rides> > paths);
+    friend int **carFinder(std::vector< std::vector<Rides> > paths, int nbCar);
+    friend Car;
+
 };
 
+
+    typedef struct Car
+    {
+      int m_x;
+      int m_y;
+      int m_time;
+      int timeToArrive(Rides ride);
+      void update(Rides ride);
+    };
 
 #endif // RIDES_H_INCLUDED

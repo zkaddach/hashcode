@@ -129,7 +129,8 @@ vector< vector<Rides> > pathFinding(vector<Rides> tabRides, int limTemps)
             }
             else if ((finish - start <= limTemps ) )
             {
-                tabRides.erase( (iterator)i );
+                iterator m = i;
+                tabRides.erase(m);
                 cond = false;
             }
             else
@@ -140,7 +141,7 @@ vector< vector<Rides> > pathFinding(vector<Rides> tabRides, int limTemps)
         compteur = 0;
 
     }
-    /*
+
     for(int i = 0; i < tabRides.size() - 1; i++)
     {
         earliest = tabRides[i].m_earliest;
@@ -151,13 +152,47 @@ vector< vector<Rides> > pathFinding(vector<Rides> tabRides, int limTemps)
     }
 
     return path;
-<<<<<<< HEAD
-}
 
-int **carFinder(std::vector< std::vector<Rides> > paths)
+}
+*/
+
+int **carFinder(std::vector< std::vector<Rides> > paths, int nbCar)
 {
-
+    int sizeOfPaths = paths.size();
+    vector <vector <int> > results;
+    //Car definition
+    Car cars[nbCar];
+    //First car association
+    int i(0);
+    for(i = 0; i < nbCar ; i++)
+    {
+        results.push_back(vector<int>(1));
+        results[i][0]= i;
+        for(int j = 0; j < paths[i].size(); j++)
+            results[i][j] = paths[i][j].m_i;
+        cars[i].update(paths[i][paths[i].size()]);
+    }
+/*
+    for(int j = i + 1; j < sizeOfPaths; j++)
+    {
+        int k = 0;
+        if(paths[j][0].m_lastStart < cars[k].timeToArrive(paths[j][0]))
+        {
+            cout << "le truc : " << paths[1][0].m_lastStart << endl;
+        }
+    }
+    */
 }
-=======
-}*/
->>>>>>> 6f0acb6d4dbe87914f05eacd409962442e7a58d8
+
+
+int Car::timeToArrive(Rides ride)
+{
+    return fabs(m_x-ride.m_a) + fabs(m_y-ride.m_b);
+}
+
+void Car::update(Rides ride)
+{
+    m_x = ride.m_x;
+    m_y = ride.m_y;
+    m_time = ride.m_finish;
+}
