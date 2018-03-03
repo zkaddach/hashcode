@@ -94,12 +94,12 @@ void sortRides(vector<Rides>& Tab, int debut, int fin)
 
 }
 
-
+/*
 vector< vector<Rides> > pathFinding(vector<Rides> tabRides, int limTemps)
 {
     vector< vector<Rides> > path;
     vector<Rides> tabIndice;
-    int earliest(0), finish(0), indice(0), i(0), j(0), k(-1),compteur(0);
+    int finish(0), indice(0), distance(0), start(0), i(0), j(0), k(-1),compteur(0);
     bool cond(true);
 
     while (tabRides.size() != 0)
@@ -112,13 +112,32 @@ vector< vector<Rides> > pathFinding(vector<Rides> tabRides, int limTemps)
         {
             compteur++;
             path.push_back(vector<Rides>(1));
-            path[compteur][0] = tabRides[i];
+            path[k][0] = tabRides[i];
 
+            j= i+1;
+            if (j > tabRides.size())
+                cond = false;
 
-            earliest = tabRides[i].m_earliest;
+            distance = fabs (tabRides[i].m_x - tabRides[j].m_a)  + fabs (tabRides[i].m_y - tabRides[j].m_b);
             finish = tabRides[i].m_finish;
             indice = tabRides[i].m_i;
+            start = tabRides[j].m_lastStart;
+
+            if((finish + distance <= start) && (finish - start <= limTemps) )
+            {
+                path[k][compteur] = tabRides[j];
+            }
+            else if ((finish - start <= limTemps ) )
+            {
+                tabRides.erase( (iterator)i );
+                cond = false;
+            }
+            else
+            {
+
+            }
         }
+        compteur = 0;
 
     }
     /*
@@ -129,7 +148,7 @@ vector< vector<Rides> > pathFinding(vector<Rides> tabRides, int limTemps)
         indice = tabRides[i].m_i;
 
 
-    }*/
+    }
 
     return path;
-}
+}*/
