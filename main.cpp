@@ -33,7 +33,10 @@ int main()
     for (int i = 0; i < 100 ; i++)
         array_rides[i].afficher();
 
+<<<<<<< HEAD
    // pathFinding(array_rides, 2);
+=======
+>>>>>>> 6f0acb6d4dbe87914f05eacd409962442e7a58d8
 
     return 0;
 }
