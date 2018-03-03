@@ -159,8 +159,6 @@ vector< vector<Rides> > pathFinding(vector<Rides> tabRides, int limTemps, int ri
             else if ((finish - start >= limTemps ) )
             {
 
-                iterator m = i;
-                tabRides.erase(m);
 
                 cout<<"\n2eme elseif\n";
                 tabRides.erase(tabRides.begin() + i-1); //suppression de la course i de tabRides
@@ -174,7 +172,7 @@ vector< vector<Rides> > pathFinding(vector<Rides> tabRides, int limTemps, int ri
             }
         }
 
-        compteur = 0;
+
 
     }
 
