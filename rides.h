@@ -5,6 +5,13 @@
 #include <math.h>
 #include <vector>
 
+typedef struct Car
+{
+  int x;
+  int y;
+  int time;
+};
+
 class Rides
 {
     public :
