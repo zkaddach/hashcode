@@ -1,5 +1,6 @@
 #ifndef RIDES_H_INCLUDED
 #define RIDES_H_INCLUDED
+
 #include <iostream>
 #include <fstream>
 #include <math.h>
@@ -38,7 +39,7 @@ class Rides
     friend void sortRides(std::vector<Rides>& Tab, int debut, int fin);
     friend void echanger(std::vector<Rides>& tableau, int a, int b);
     friend std::vector< std::vector<Rides> > pathFinding(std::vector<Rides> tabRides, int limTemps);
-
+    friend int **carFinder(std::vector< std::vector<Rides> > paths);
 };
 
 

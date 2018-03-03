@@ -133,3 +133,8 @@ vector< vector<Rides> > pathFinding(vector<Rides> tabRides, int limTemps)
 
     return path;
 }
+
+int **carFinder(std::vector< std::vector<Rides> > paths)
+{
+
+}

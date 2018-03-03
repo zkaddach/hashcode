@@ -33,7 +33,7 @@ int main()
     for (int i = 0; i < 100 ; i++)
         array_rides[i].afficher();
 
-    pathFinding(array_rides, 2);
+   // pathFinding(array_rides, 2);
 
     return 0;
 }
