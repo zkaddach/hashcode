@@ -24,12 +24,10 @@ int main()
         array_rides.push_back(newR);
     }
 
-    /*for (int i = 0; i < rides ; i++)
-        array_rides[i].afficher();*/
     Rides newR2(0,0,0,0,0,0,0);
     newR2 = array_rides[0];
-    //sortRides(array_rides, 0 , rides-1);
     cout << endl;
+
     /*for (int i = 0; i < array_rides.size() ; i++)
         array_rides[i].afficher();*/
 
@@ -43,6 +41,11 @@ int main()
     paths[0][0] = (array_rides[1]);
     paths[0].push_back(array_rides[2]);
     paths[1][0] = array_rides[0];
+
+    /*for (int i = 0; i < rides ; i++)
+        array_rides[i].afficher();*/
+
+    pathFinding(array_rides, 1500, rides);
 
     carFinder(paths, 2);
     return 0;

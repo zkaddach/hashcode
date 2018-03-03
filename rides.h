@@ -36,6 +36,7 @@ class Rides
     friend std::vector< std::vector<Rides> > pathFinding(std::vector<Rides> tabRides, int limTemps);
     friend int **carFinder(std::vector< std::vector<Rides> > paths, int nbCar);
     friend Car;
+    friend std::vector< std::vector<Rides> > pathFinding(std::vector<Rides> tabRides, int limTemps, int rides);
 
 };
 

@@ -67,6 +67,7 @@ void echanger(vector<Rides>& tableau, int a, int b)
   tableau[b]= tmp;
 }
 
+// trie le tableau de rides dans l'ordre croissant par rapport à l'attribut m_lastStart
 
 void sortRides(vector<Rides>& Tab, int debut, int fin)
 {
@@ -94,50 +95,85 @@ void sortRides(vector<Rides>& Tab, int debut, int fin)
 
 }
 
-/*
-vector< vector<Rides> > pathFinding(vector<Rides> tabRides, int limTemps)
+// construit les chemins les plus long entre les rides
+
+vector< vector<Rides> > pathFinding(vector<Rides> tabRides, int limTemps, int rides)
 {
     vector< vector<Rides> > path;
-    vector<Rides> tabIndice;
-    int finish(0), indice(0), distance(0), start(0), i(0), j(0), k(-1),compteur(0);
-    bool cond(true);
+    int finish(0), indice(0), distance(0), start(0), i(0), j(0), k(-1);
+    bool cond(true), cond2(true);
 
-    while (tabRides.size() != 0)
+    sortRides(tabRides, 0 , rides-1);
+    for (int i = 0; i < rides ; i++)
+        tabRides[i].afficher();
+
+    while (cond2==true && (tabRides.size() != 0))
     {
-        k++;
-        j = 0;
-        i = j;  // on se remet à la premiere rides non affectée
+        cout << "a\n";
+        k++;    // compteur de ligne
+        i = 0; // on se remet à la premiere rides non affectée
+        j = 1; // rides non effectuée suivante
+        path.push_back(vector<Rides>(1)); // création d'une ligne
+        path[k][0] = tabRides[i];  // on met le premier rides dans la k_iém ligne
+
+        cout << endl;
+        path[k][0].afficher();
 
         while (cond)
         {
-            compteur++;
-            path.push_back(vector<Rides>(1));
-            path[k][0] = tabRides[i];
+            cout << "\n\nb\n";
 
-            j= i+1;
-            if (j > tabRides.size())
+            if (tabRides.size() == 1)   //si le tableau a une taille de 1
+            {
+                cout<<"\n1er if\n";
+                tabRides.erase(tabRides.begin() + i-1);
                 cond = false;
+                cond2 = false;
+                break;
+            }
+            else if (j >= tabRides.size()) // si j est supérieur à la taille on arrête
+            {
+                cout<<"\n1er elseif\n";
+                tabRides.erase(tabRides.begin() + i-1);
+                cond = false;
+                break;
+            }
 
             distance = fabs (tabRides[i].m_x - tabRides[j].m_a)  + fabs (tabRides[i].m_y - tabRides[j].m_b);
+            cout<<distance<<endl;
             finish = tabRides[i].m_finish;
+            cout<<finish<<endl;
             indice = tabRides[i].m_i;
+            cout<<indice<<endl;
             start = tabRides[j].m_lastStart;
+            cout<<start<<endl;
 
             if((finish + distance <= start) && (finish - start <= limTemps) )
             {
-                path[k][compteur] = tabRides[j];
+                cout<<"\n2eme if\n";
+                tabRides.erase(tabRides.begin() + i-1); //suppression de la course i de tabRides (déjà ajouté dans path)
+                path[k].push_back(tabRides[j]);         // on ajoute la rides j à la suite de i dans path
+                i = j;                                  // i toujours ajouté alors
+                j++;
             }
-            else if ((finish - start <= limTemps ) )
+            else if ((finish - start >= limTemps ) )
             {
+
                 iterator m = i;
                 tabRides.erase(m);
+
+                cout<<"\n2eme elseif\n";
+                tabRides.erase(tabRides.begin() + i-1); //suppression de la course i de tabRides
+
                 cond = false;
             }
             else
             {
-
+                cout<<"\n1er else\n";
+                j++;
             }
         }
+
         compteur = 0;
 
     }
@@ -149,12 +185,18 @@ vector< vector<Rides> > pathFinding(vector<Rides> tabRides, int limTemps)
         indice = tabRides[i].m_i;
 
 
-    }
 
+        cout <<"path:\n";
+        cout << tabRides.size();
+        path[k][0].afficher();
+        cond = true;
+
+    }
     return path;
 
+
 }
-*/
+
 
 int **carFinder(std::vector< std::vector<Rides> > paths, int nbCar)
 {
