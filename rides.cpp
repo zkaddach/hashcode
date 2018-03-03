@@ -2,11 +2,16 @@
 
 using namespace std;
 
+Rides::Rides() : m_a(0), m_b(0), m_x(0), m_y(0), m_earliest(0), m_finish(0), m_i(0), m_distance(0), m_tempsTrajet(0), m_retardPossible(0), m_lastStart(0)
+{
+}
+
 Rides::Rides(int a, int b, int x, int y, int e, int f, int i) : m_a(a), m_b(b), m_x(x), m_y(y), m_earliest(e), m_finish(f), m_i(i)
 {
     m_distance = fabs(a-x) + fabs (b-y);
     m_tempsTrajet = f - e;
     m_retardPossible = m_tempsTrajet - m_distance;
+    m_lastStart = e + m_retardPossible;
 }
 
 void Rides::update(int a, int b, int x, int y, int e, int f, int i)
@@ -21,6 +26,7 @@ void Rides::update(int a, int b, int x, int y, int e, int f, int i)
     m_distance = fabs(a-x) + fabs (b-y);
     m_tempsTrajet = f - e;
     m_retardPossible = m_tempsTrajet - m_distance;
+    m_lastStart = e + m_retardPossible;
 }
 
 void Rides::afficher()
@@ -29,6 +35,8 @@ void Rides::afficher()
     std::cout << "Distance : " << m_distance << std::endl;
     std::cout << "Temps de trajet : " << m_tempsTrajet<< std::endl;
     std::cout << "Retard possible: " << m_retardPossible<< std::endl;
+    std::cout << "Depart au plus tard: " << m_lastStart<< std::endl;
+
 }
 
 Rides& Rides::operator=(const Rides& b)
@@ -43,6 +51,7 @@ Rides& Rides::operator=(const Rides& b)
     m_y = b.m_y;
     m_tempsTrajet = b.m_tempsTrajet;
     m_retardPossible = b.m_retardPossible;
+    m_lastStart = b.m_lastStart;
     return *this;
 }
 
@@ -63,7 +72,7 @@ void sortRides(vector<Rides>& Tab, int debut, int fin)
 {
     int gauche = debut-1;
     int droite = fin+1;
-    const int pivot = Tab[debut].m_earliest;
+    const int pivot = Tab[debut].m_lastStart;
 
     if(debut >= fin)
 
@@ -71,8 +80,8 @@ void sortRides(vector<Rides>& Tab, int debut, int fin)
 
     while(1)
     {
-        do droite--; while(Tab[droite].m_earliest > pivot);
-        do gauche++; while(Tab[gauche].m_earliest < pivot);
+        do droite--; while(Tab[droite].m_lastStart > pivot);
+        do gauche++; while(Tab[gauche].m_lastStart < pivot);
 
         if(gauche < droite)
             echanger(Tab, gauche, droite);
@@ -81,10 +90,46 @@ void sortRides(vector<Rides>& Tab, int debut, int fin)
 
     }
     sortRides(Tab, debut, droite);
-
     sortRides(Tab, droite+1, fin);
 
 }
 
 
-//Rides r(b.m_a,b.m_b,b.m_x, b.m_y, b.m_earliest, b.m_finish, b.m_i);
+vector< vector<Rides> > pathFinding(vector<Rides> tabRides, int limTemps)
+{
+    vector< vector<Rides> > path;
+    vector<Rides> tabIndice;
+    int earliest(0), finish(0), indice(0), i(0), j(0), k(-1),compteur(0);
+    bool cond(true);
+
+    while (tabRides.size() != 0)
+    {
+        k++;
+        j = 0;
+        i = j;  // on se remet à la premiere rides non affectée
+
+        while (cond)
+        {
+            compteur++;
+            path.push_back(vector<Rides>(1));
+            path[compteur][0] = tabRides[i];
+
+
+            earliest = tabRides[i].m_earliest;
+            finish = tabRides[i].m_finish;
+            indice = tabRides[i].m_i;
+        }
+
+    }
+    /*
+    for(int i = 0; i < tabRides.size() - 1; i++)
+    {
+        earliest = tabRides[i].m_earliest;
+        finish = tabRides[i].m_finish;
+        indice = tabRides[i].m_i;
+
+
+    }*/
+
+    return path;
+}
