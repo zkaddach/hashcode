@@ -94,7 +94,7 @@ void sortRides(vector<Rides>& Tab, int debut, int fin)
     sortRides(Tab, droite+1, fin);
 
 }
-
+/*
 // construit les chemins les plus long entre les rides
 vector< vector<Rides> > pathFinding(vector<Rides> tabRides, int limTemps, int rides)
 {
@@ -145,7 +145,7 @@ vector< vector<Rides> > pathFinding(vector<Rides> tabRides, int limTemps, int ri
             start = tabRides[j].m_lastStart;
 
 
-            if((finish + distance <= start) && (finish - start <= limTemps) )
+            if((finish + distance < start) && (finish - start <= limTemps) )
             {
                 if (i == 0)
                     tabRides.erase(tabRides.begin());
@@ -182,7 +182,7 @@ vector< vector<Rides> > pathFinding(vector<Rides> tabRides, int limTemps, int ri
         }
         cout <<"\n\n\n";
     }
-*/
+
     return path;
 }
 
@@ -194,13 +194,44 @@ void sortPath(vector< vector<Rides> > path)
 }*/
 
 
-
+vector< vector<Rides> > pathFinding(vector<Rides> tabRides, int limTemps, int rides)
+{
+    sortRides(tabRides, 0 , rides-1);
+    vector< vector<Rides> > paths;
+    int id_paths(0), id_rides(0);
+    Rides head;
+    while(tabRides.size() > 0)
+    {
+        id_rides = 0; //New path
+        paths.push_back(vector <Rides>(1));
+        paths[id_paths][0] = tabRides[0];
+        head = tabRides[0];
+        tabRides.erase(tabRides.begin());
+        for(int i = 0; i < tabRides.size(); i++)
+        {
+            if(inInterval(head.m_finish+distanceRides(head,tabRides[i]), tabRides[i].m_earliest, tabRides[i].m_lastStart))
+            {
+                id_rides++;
+                if(id_rides == 0)
+                    paths[id_paths][id_rides] = tabRides[i];
+                else
+                    paths[id_paths].push_back(tabRides[i]);
+                head = tabRides[i];
+                tabRides.erase(tabRides.begin() + i);
+                i = 0;
+            }
+        }
+        id_paths++;
+    }
+    return paths;
+}
 
 
 vector <vector <int> > carFinder(std::vector< std::vector<Rides> > paths, int nbCar)
 {
     vector <vector <int> > results;
     vector <Rides> notAffected;
+    vector <int> notAffected2;
     //Car definition
     Car cars[nbCar];
     for(int i = 0; i < nbCar; i++)
@@ -229,14 +260,21 @@ vector <vector <int> > carFinder(std::vector< std::vector<Rides> > paths, int nb
                 cars[posInCars].update(paths[posInPaths][paths[posInPaths].size()-1]);
                 posInCars++;
                 posInPaths++;
+                if(compteur != 0)
+                {
+                        notAffected.push_back(paths[posInPaths][0]);
+                        notAffected2.push_back(compteur);
+                }
             }
             else if (compteur < paths[posInPaths].size())
             {
+
                 compteur++;
             }
             else
             {
                 notAffected.push_back(paths[posInPaths][0]);
+                notAffected2.push_back(0);
                 posInPaths++;
                 compteur = 0;
             }
@@ -247,7 +285,9 @@ vector <vector <int> > carFinder(std::vector< std::vector<Rides> > paths, int nb
             notAffected[i].afficher();
             cout << endl;
         }
-        cout << notAffected.size() << endl;
+        cout << notAffected.size() << endl<<endl;
+
+
 
 //Not Affectation association
 /*
@@ -257,11 +297,12 @@ vector <vector <int> > carFinder(std::vector< std::vector<Rides> > paths, int nb
         if(cars[posInCars].arriveOnTime(notAffected[posInNotAffected]))
         {
             results[posInCars].push_back(notAffected[posInNotAffected][j].m_i);
+            cars[posInCars].update(notAffected[posInNotAffected][j]);
             posInNotAffected++;
-            po
         }
-    }*/
 
+    }
+*/
     //Printing results
 /*
     for(int i = 0; i < nbCar; i++)
@@ -288,4 +329,14 @@ void Car::update(Rides ride)
     m_x = ride.m_x;
     m_y = ride.m_y;
     m_time = ride.m_finish;
+}
+
+bool inInterval (int x, int a, int z)
+{
+    return (x >= a && x < z);
+}
+
+int distanceRides (Rides a, Rides b)
+{
+    return fabs(b.m_a - a.m_x) + fabs(b.m_b-a.m_y);
 }

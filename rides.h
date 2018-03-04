@@ -37,6 +37,7 @@ class Rides
     friend std::vector <std::vector <int> > carFinder(std::vector< std::vector<Rides> > paths, int nbCar);
     friend Car;
     friend std::vector< std::vector<Rides> > pathFinding(std::vector<Rides> tabRides, int limTemps, int rides);
+    friend int distanceRides (Rides a, Rides b);
 
 };
 
@@ -49,5 +50,8 @@ class Rides
       bool arriveOnTime(Rides ride);
       void update(Rides ride);
     };
+
+bool inInterval (int x, int a, int z);
+
 
 #endif // RIDES_H_INCLUDED

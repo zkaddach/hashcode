@@ -4,7 +4,7 @@ using namespace std;
 
 int main()
 {
-    string adr_file = "c_no_hurry.in";
+    string adr_file = "e_high_bonus.in";
     ifstream file(adr_file.c_str());
 
     //Loading header
@@ -26,7 +26,7 @@ int main()
 
     //Calling pathfinder
     std::vector< std::vector<Rides> > paths;
-    paths = pathFinding(array_rides, 1500, rides);
+    paths = pathFinding(array_rides, 250000000, rides);
 
     //Calling carFinder
     vector <vector<int> > results;
