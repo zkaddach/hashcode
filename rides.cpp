@@ -186,7 +186,12 @@ vector< vector<Rides> > pathFinding(vector<Rides> tabRides, int limTemps, int ri
     return path;
 }
 
+/*
+void sortPath(vector< vector<Rides> > path)
+{
+    int taille = path.size();
 
+}*/
 
 
 
