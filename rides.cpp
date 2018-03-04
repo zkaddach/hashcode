@@ -104,7 +104,7 @@ vector< vector<Rides> > pathFinding(vector<Rides> tabRides, int limTemps, int ri
 
     sortRides(tabRides, 0 , rides-1);
 
-    while (cond2 && (tabRides.size() >= 1))
+    while (cond2 && (tabRides.size() >= 0))
     {
         k++;    // compteur de ligne
         i = 0; // on se remet à la premiere rides non affectée
@@ -121,7 +121,7 @@ vector< vector<Rides> > pathFinding(vector<Rides> tabRides, int limTemps, int ri
                 if (i == 0)
                     tabRides.erase(tabRides.begin());
                 else
-                    tabRides.erase(tabRides.begin() + i-1);
+                    tabRides.erase(tabRides.begin() + i);
 
                 cond = false;
                 cond2 = false;
@@ -133,7 +133,7 @@ vector< vector<Rides> > pathFinding(vector<Rides> tabRides, int limTemps, int ri
                 if (i == 0)
                     tabRides.erase(tabRides.begin());
                 else
-                    tabRides.erase(tabRides.begin() + i-1);
+                    tabRides.erase(tabRides.begin() + i);
 
                 cond = false;
                 break;
@@ -147,11 +147,10 @@ vector< vector<Rides> > pathFinding(vector<Rides> tabRides, int limTemps, int ri
 
             if((finish + distance <= start) && (finish - start <= limTemps) )
             {
-
                 if (i == 0)
                     tabRides.erase(tabRides.begin());
                 else
-                    tabRides.erase(tabRides.begin() + i-1); //suppression de la course i de tabRides (déjà ajouté dans path)
+                    tabRides.erase(tabRides.begin() + i); //suppression de la course i de tabRides (déjà ajouté dans path)
                 path[k].push_back(tabRides[j]);             // on ajoute la rides j à la suite de i dans path
                 i = j;                                  // i toujours ajouté alors
                 j++;
@@ -161,7 +160,7 @@ vector< vector<Rides> > pathFinding(vector<Rides> tabRides, int limTemps, int ri
                 if (i == 0)
                     tabRides.erase(tabRides.begin());
                 else
-                    tabRides.erase(tabRides.begin() + i-1); //suppression de la course i de tabRides
+                    tabRides.erase(tabRides.begin() + i); //suppression de la course i de tabRides
                 cond = false;
             }
             else
@@ -174,7 +173,7 @@ vector< vector<Rides> > pathFinding(vector<Rides> tabRides, int limTemps, int ri
     }
 
 
-    for (int l = 0; l<= k ; l++)
+    for (int l = 0; l<= 2 ; l++)
     {
         cout << l <<"éme chemin \n\n";
         for (int h = 0; h <  path[l].size();h++)
