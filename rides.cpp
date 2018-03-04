@@ -195,13 +195,42 @@ vector< vector<Rides> > pathFinding(vector<Rides> tabRides, int limTemps, int ri
 
 vector <vector <int> > carFinder(std::vector< std::vector<Rides> > paths, int nbCar)
 {
-    int sizeOfPaths = paths.size();
     vector <vector <int> > results;
-
+    vector <int> notAffected();
     //Car definition
     Car cars[nbCar];
+    for(int i = 0; i < nbCar; i++)
+    {
+        cars[i].m_x = 0;
+        cars[i].m_y = 0;
+        cars[i].m_time = 0;
+    }
 
-    int posInPaths(0);
+    //First association
+    int posInPaths(0), posInCars(0);
+
+        while(posInCars < nbCar && posInPaths < paths.size())
+        {
+            if(cars[posInCars].arriveOnTime(paths[posInPaths][0]))
+            {
+                results.push_back(vector <int> (1));
+                results[posInCars].push_back(paths[posInPaths].size());
+                for(int j = 0; j < paths[posInPaths].size(); j++)
+                {
+                    results[posInCars].push_back(paths[posInPaths][j].m_i);
+                }
+                cars[posInCars].update(paths[posInPaths][paths[posInPaths].size()-1]);
+                posInCars++;
+                posInPaths++;
+            }
+            else
+            {
+                posInPaths++;
+            }
+        }
+
+//------------------------------------------------
+
     for(posInPaths = 0; posInPaths < nbCar ; posInPaths++)
     {
         results.push_back(vector<int>(1));
@@ -212,6 +241,7 @@ vector <vector <int> > carFinder(std::vector< std::vector<Rides> > paths, int nb
     }
     posInPaths = 0;
 
+    int indice_chemin = 0;
     //First car association
     for(int i = 0; i < paths.size(); i++)
     {
@@ -219,10 +249,9 @@ vector <vector <int> > carFinder(std::vector< std::vector<Rides> > paths, int nb
         {
             results[i].push_back(paths[i][j].m_i);
         }
-        cout << endl;
     }
 
-
+//----------------------------------------------------------------
     //Printing results
     for(int i = 0; i < nbCar; i++)
     {
@@ -235,9 +264,9 @@ vector <vector <int> > carFinder(std::vector< std::vector<Rides> > paths, int nb
 }
 
 
-int Car::timeToArrive(Rides ride)
+bool Car::arriveOnTime(Rides ride)
 {
-    return fabs(m_x-ride.m_a) + fabs(m_y-ride.m_b);
+    return (fabs(m_x-ride.m_a) + fabs(m_y-ride.m_b)) < ride.m_lastStart;
 }
 
 void Car::update(Rides ride)

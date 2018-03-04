@@ -46,7 +46,7 @@ class Rides
       int m_x;
       int m_y;
       int m_time;
-      int timeToArrive(Rides ride);
+      bool arriveOnTime(Rides ride);
       void update(Rides ride);
     };
 
