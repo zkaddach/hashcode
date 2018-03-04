@@ -172,7 +172,7 @@ vector< vector<Rides> > pathFinding(vector<Rides> tabRides, int limTemps, int ri
         cond = true;
     }
 
-
+/*
     for (int l = 0; l<= 2 ; l++)
     {
         cout << l <<"éme chemin \n\n";
@@ -182,7 +182,7 @@ vector< vector<Rides> > pathFinding(vector<Rides> tabRides, int limTemps, int ri
         }
         cout <<"\n\n\n";
     }
-
+*/
     return path;
 }
 
@@ -200,7 +200,7 @@ void sortPath(vector< vector<Rides> > path)
 vector <vector <int> > carFinder(std::vector< std::vector<Rides> > paths, int nbCar)
 {
     vector <vector <int> > results;
-    vector <int> notAffected();
+    vector <Rides> notAffected;
     //Car definition
     Car cars[nbCar];
     for(int i = 0; i < nbCar; i++)
@@ -211,18 +211,18 @@ vector <vector <int> > carFinder(std::vector< std::vector<Rides> > paths, int nb
     }
 
     //First association
-    int posInPaths(0), posInCars(0);
+    int posInPaths(0), posInCars(0),compteur(0);
     for(int i = 0; i < nbCar; i++)
         results.push_back(vector <int>(1));
 
         while(posInCars < nbCar && posInPaths < paths.size())
         {
-            if(cars[posInCars].arriveOnTime(paths[posInPaths][0]))
+            if(cars[posInCars].arriveOnTime(paths[posInPaths][compteur]))
             {
 
-                results[posInCars][0] = (paths[posInPaths].size());
+                results[posInCars][0] = (paths[posInPaths].size() - compteur);
 
-                for(int j = 0; j < paths[posInPaths].size(); j++)
+                for(int j = compteur; j < paths[posInPaths].size(); j++)
                 {
                     results[posInCars].push_back(paths[posInPaths][j].m_i);
                 }
@@ -230,12 +230,24 @@ vector <vector <int> > carFinder(std::vector< std::vector<Rides> > paths, int nb
                 posInCars++;
                 posInPaths++;
             }
+            else if (compteur < paths[posInPaths].size())
+            {
+                compteur++;
+            }
             else
             {
+                notAffected.push_back(paths[posInPaths][0]);
                 posInPaths++;
+                compteur = 0;
             }
 
         }
+        for(int i = 0 ; i < notAffected.size();i++)
+        {
+            notAffected[i].afficher();
+            cout << endl;
+        }
+
 
 //------------------------------------------------
 /*
@@ -262,7 +274,7 @@ vector <vector <int> > carFinder(std::vector< std::vector<Rides> > paths, int nb
 //----------------------------------------------------------------
 
     //Printing results
-
+/*
     for(int i = 0; i < nbCar; i++)
     {
         if(results.size() > 0 && results[i].size() > 0)
@@ -271,7 +283,7 @@ vector <vector <int> > carFinder(std::vector< std::vector<Rides> > paths, int nb
             cout << results[i][j] << " " ;
         }
         cout << endl;
-    }
+    }*/
 
     return results;
 }
@@ -279,7 +291,7 @@ vector <vector <int> > carFinder(std::vector< std::vector<Rides> > paths, int nb
 
 bool Car::arriveOnTime(Rides ride)
 {
-    return (fabs(m_x-ride.m_a) + fabs(m_y-ride.m_b)) < ride.m_lastStart;
+    return (fabs(m_x-ride.m_a) + fabs(m_y-ride.m_b)) + m_time < ride.m_lastStart-1;
 }
 
 void Car::update(Rides ride)
