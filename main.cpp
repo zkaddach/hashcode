@@ -30,14 +30,18 @@ int main()
 
     //Calling carFinder
     vector <vector<int> > results;
-    //results = carFinder(paths, vehicles);
+    results = carFinder(paths, vehicles);
 
     //Printing in File
     ofstream output("results.txt");
     for(int i = 0; i < vehicles; i++)
     {
-        for(int j = 0; j < results[i].size(); j++)
+        if(results.size() > 0)
+        {
+            for(int j = 0; j < results[i].size(); j++)
             output << results[i][j] << " ";
+        }
+
         output << endl;
     }
 
