@@ -33,7 +33,7 @@ int main()
     results = carFinder(paths, vehicles);
 
     //Printing in File
-    ofstream output("../../hashcode/hashcode/results.txt");
+    ofstream output("results.txt");
     for(int i = 0; i < vehicles; i++)
     {
         for(int j = 0; j < results[i].size(); j++)
