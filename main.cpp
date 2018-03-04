@@ -45,9 +45,9 @@ int main()
     /*for (int i = 0; i < rides ; i++)
         array_rides[i].afficher();*/
 
-    pathFinding(array_rides, 1500, rides);
+    paths = pathFinding(array_rides, 1500, rides);
 
-    carFinder(paths, 2);
+    //carFinder(paths, 2);
     return 0;
 }
 

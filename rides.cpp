@@ -96,7 +96,6 @@ void sortRides(vector<Rides>& Tab, int debut, int fin)
 }
 
 // construit les chemins les plus long entre les rides
-
 vector< vector<Rides> > pathFinding(vector<Rides> tabRides, int limTemps, int rides)
 {
     vector< vector<Rides> > path;
@@ -107,7 +106,7 @@ vector< vector<Rides> > pathFinding(vector<Rides> tabRides, int limTemps, int ri
     for (int i = 0; i < rides ; i++)
         tabRides[i].afficher();
 
-    while (cond2 && (tabRides.size() != 0))
+    while (cond2 && (tabRides.size() >= 1))
     {
         cout << "a\n";
         k++;    // compteur de ligne
@@ -123,10 +122,15 @@ vector< vector<Rides> > pathFinding(vector<Rides> tabRides, int limTemps, int ri
         {
             cout << "\n\nb\n";
 
-            if (tabRides.size() == 1)   //si le tableau a une taille de 1
+            if (tabRides.size() == 2)   //si le tableau a une taille de 1
             {
                 cout<<"\n1er if\n";
-                tabRides.erase(tabRides.begin() + i-1);
+                if(i-1 >= 0)
+                {
+                    cout << "here" << endl;
+                    tabRides.erase(tabRides.begin() + i-1);
+                }
+
                 cond = false;
                 cond2 = false;
                 break;
@@ -134,6 +138,7 @@ vector< vector<Rides> > pathFinding(vector<Rides> tabRides, int limTemps, int ri
             else if (j >= tabRides.size()) // si j est supérieur à la taille on arrête
             {
                 cout<<"\n1er elseif\n";
+                if(i-1 >= 0)
                 tabRides.erase(tabRides.begin() + i-1);
                 cond = false;
                 break;
@@ -151,18 +156,17 @@ vector< vector<Rides> > pathFinding(vector<Rides> tabRides, int limTemps, int ri
             if((finish + distance <= start) && (finish - start <= limTemps) )
             {
                 cout<<"\n2eme if\n";
-                tabRides.erase(tabRides.begin() + i-1); //suppression de la course i de tabRides (déjà ajouté dans path)
+                    if(i-1 >= 0)
+                    tabRides.erase(tabRides.begin() + i-1); //suppression de la course i de tabRides (déjà ajouté dans path)
                 path[k].push_back(tabRides[j]);         // on ajoute la rides j à la suite de i dans path
                 i = j;                                  // i toujours ajouté alors
                 j++;
             }
             else if ((finish - start >= limTemps ) )
             {
-
-
                 cout<<"\n2eme elseif\n";
+                if(i-1 >= 0)
                 tabRides.erase(tabRides.begin() + i-1); //suppression de la course i de tabRides
-
                 cond = false;
             }
             else
@@ -171,32 +175,20 @@ vector< vector<Rides> > pathFinding(vector<Rides> tabRides, int limTemps, int ri
                 j++;
             }
         }
-
-
-
+            cout <<"path:\n";
+            cout << tabRides.size()<<endl;
+            path[k][0].afficher();
+            cond = true;
     }
 
-    for(int i = 0; i < tabRides.size() - 1; i++)
-    {
-        earliest = tabRides[i].m_earliest;
-        finish = tabRides[i].m_finish;
-        indice = tabRides[i].m_i;
-
-
-
-        cout <<"path:\n";
-        cout << tabRides.size();
-        path[k][0].afficher();
-        cond = true;
-
-    }
-
-    cout <<"salut\n";
 
     return path;
-
-
 }
+
+
+
+
+
 
 
 int **carFinder(std::vector< std::vector<Rides> > paths, int nbCar)
