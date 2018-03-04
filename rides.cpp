@@ -193,32 +193,53 @@ vector< vector<Rides> > pathFinding(vector<Rides> tabRides, int limTemps, int ri
 
 
 
-int **carFinder(std::vector< std::vector<Rides> > paths, int nbCar)
+vector <vector <int> > carFinder(std::vector< std::vector<Rides> > paths, int nbCar)
 {
     int sizeOfPaths = paths.size();
     vector <vector <int> > results;
     //Car definition
     Car cars[nbCar];
-    //First car association
-    int i(0);
-    for(i = 0; i < nbCar ; i++)
+
+    int posInPaths(0);
+    for(posInPaths = 0; posInPaths < nbCar ; posInPaths++)
     {
         results.push_back(vector<int>(1));
-        results[i][0]= i;
-        for(int j = 0; j < paths[i].size(); j++)
-            results[i][j] = paths[i][j].m_i;
-        cars[i].update(paths[i][paths[i].size()]);
+        results[posInPaths][0]= posInPaths;
     }
-/*
-    for(int j = i + 1; j < sizeOfPaths; j++)
+    posInPaths = 0;
+
+    //First car association
+    for(int i = 0; i < 28; i++)
     {
-        int k = 0;
-        if(paths[j][0].m_lastStart < cars[k].timeToArrive(paths[j][0]))
+        for(int j = 0; j < paths[i].size(); j++)
         {
-            cout << "le truc : " << paths[1][0].m_lastStart << endl;
+            results[i].push_back(paths[i][j].m_i);
         }
+        cout << endl;
     }
+
+
+    //Printing results
+    for(int i = 0; i < nbCar; i++)
+    {
+        for(int j = 0; j < results[i].size(); j++)
+            cout << results[i][j] << " " ;
+        cout << endl;
+    }
+
+
+
+    /*
+        for(int j = i + 1; j < sizeOfPaths; j++)
+        {
+            int k = 0;
+            if(paths[j][0].m_lastStart < cars[k].timeToArrive(paths[j][0]))
+            {
+                cout << "le truc : " << paths[1][0].m_lastStart << endl;
+            }
+        }
     */
+    return results;
 }
 
 

@@ -34,7 +34,7 @@ class Rides
     friend void sortRides(std::vector<Rides>& Tab, int debut, int fin);
     friend void echanger(std::vector<Rides>& tableau, int a, int b);
     friend std::vector< std::vector<Rides> > pathFinding(std::vector<Rides> tabRides, int limTemps);
-    friend int **carFinder(std::vector< std::vector<Rides> > paths, int nbCar);
+    friend std::vector <std::vector <int> > carFinder(std::vector< std::vector<Rides> > paths, int nbCar);
     friend Car;
     friend std::vector< std::vector<Rides> > pathFinding(std::vector<Rides> tabRides, int limTemps, int rides);
 

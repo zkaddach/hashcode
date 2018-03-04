@@ -11,7 +11,7 @@ int main()
     int rows(0), cols(0), vehicles(0), rides(0), bonus(0), steps(0);
     file >> rows >> cols >> vehicles >> rides >> bonus >> steps;
 
-    //Loading Rides
+    //Loading rides
     vector<Rides> array_rides;
     int a(0), b(0), x(0), y(0), e(0), f(0);
 
@@ -24,30 +24,23 @@ int main()
         array_rides.push_back(newR);
     }
 
-    Rides newR2(0,0,0,0,0,0,0);
-    newR2 = array_rides[0];
-    cout << endl;
-
-    /*for (int i = 0; i < array_rides.size() ; i++)
-        array_rides[i].afficher();*/
-
-
-   // pathFinding(array_rides, 2);
-
+    //Calling pathfinder
     std::vector< std::vector<Rides> > paths;
-
-    paths.push_back(vector<Rides> (1));
-    paths.push_back(vector<Rides> (1));
-    paths[0][0] = (array_rides[1]);
-    paths[0].push_back(array_rides[2]);
-    paths[1][0] = array_rides[0];
-
-    /*for (int i = 0; i < rides ; i++)
-        array_rides[i].afficher();*/
-
     paths = pathFinding(array_rides, 1500, rides);
 
-    //carFinder(paths, 2);
+    //Calling carFinder
+    vector <vector<int> > results;
+    results = carFinder(paths, vehicles);
+
+    //Printing in File
+    ofstream output("../../hashcode/hashcode/results.txt");
+    for(int i = 0; i < vehicles; i++)
+    {
+        for(int j = 0; j < results[i].size(); j++)
+            output << results[i][j] << " ";
+        output << endl;
+    }
+
     return 0;
 }
 
