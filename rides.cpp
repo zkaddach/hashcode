@@ -104,7 +104,7 @@ vector< vector<Rides> > pathFinding(vector<Rides> tabRides, int limTemps, int ri
 
     sortRides(tabRides, 0 , rides-1);
 
-    while (cond2 && (tabRides.size() >= 1))
+    while (cond2 && (tabRides.size() >= 0))
     {
         k++;    // compteur de ligne
         i = 0; // on se remet à la premiere rides non affectée
