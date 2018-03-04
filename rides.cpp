@@ -104,77 +104,85 @@ vector< vector<Rides> > pathFinding(vector<Rides> tabRides, int limTemps, int ri
     bool cond(true), cond2(true);
 
     sortRides(tabRides, 0 , rides-1);
-    for (int i = 0; i < rides ; i++)
-        tabRides[i].afficher();
 
     while (cond2 && (tabRides.size() != 0))
     {
-        cout << "a\n";
         k++;    // compteur de ligne
         i = 0; // on se remet à la premiere rides non affectée
         j = 1; // rides non effectuée suivante
         path.push_back(vector<Rides>(1)); // création d'une ligne
         path[k][0] = tabRides[i];  // on met le premier rides dans la k_iém ligne
 
-        cout << endl;
-        path[k][0].afficher();
-
         while (cond)
         {
-            cout << "\n\nb\n";
 
             if (tabRides.size() == 1)   //si le tableau a une taille de 1
             {
-                cout<<"\n1er if\n";
-                tabRides.erase(tabRides.begin() + i-1);
+
+                if (i == 0)
+                    tabRides.erase(tabRides.begin());
+                else
+                    tabRides.erase(tabRides.begin() + i-1);
+
                 cond = false;
                 cond2 = false;
                 break;
             }
             else if (j >= tabRides.size()) // si j est supérieur à la taille on arrête
             {
-                cout<<"\n1er elseif\n";
-                tabRides.erase(tabRides.begin() + i-1);
+
+                if (i == 0)
+                    tabRides.erase(tabRides.begin());
+                else
+                    tabRides.erase(tabRides.begin() + i-1);
+
                 cond = false;
                 break;
             }
 
             distance = fabs (tabRides[i].m_x - tabRides[j].m_a)  + fabs (tabRides[i].m_y - tabRides[j].m_b);
-            cout<<distance<<endl;
             finish = tabRides[i].m_finish;
-            cout<<finish<<endl;
             indice = tabRides[i].m_i;
-            cout<<indice<<endl;
             start = tabRides[j].m_lastStart;
-            cout<<start<<endl;
+
 
             if((finish + distance <= start) && (finish - start <= limTemps) )
             {
-                cout<<"\n2eme if\n";
-                tabRides.erase(tabRides.begin() + i-1); //suppression de la course i de tabRides (déjà ajouté dans path)
-                path[k].push_back(tabRides[j]);         // on ajoute la rides j à la suite de i dans path
+
+                if (i == 0)
+                    tabRides.erase(tabRides.begin());
+                else
+                    tabRides.erase(tabRides.begin() + i-1); //suppression de la course i de tabRides (déjà ajouté dans path)
+                path[k].push_back(tabRides[j]);             // on ajoute la rides j à la suite de i dans path
                 i = j;                                  // i toujours ajouté alors
                 j++;
             }
             else if ((finish - start >= limTemps ) )
             {
-                cout<<"\n2eme elseif\n";
-                tabRides.erase(tabRides.begin() + i-1); //suppression de la course i de tabRides
+                if (i == 0)
+                    tabRides.erase(tabRides.begin());
+                else
+                    tabRides.erase(tabRides.begin() + i-1); //suppression de la course i de tabRides
                 cond = false;
             }
             else
             {
-                cout<<"\n1er else\n";
                 j++;
             }
         }
-        cout <<"path:\n";
-        cout << tabRides.size();
-        path[k][0].afficher();
         cond = true;
     }
 
-    cout <<"salut\n";
+
+    for (int l = 0; l<= k ; l++)
+    {
+        cout << l <<"éme chemin \n\n";
+        for (int h = 0; h <  path[l].size();h++)
+        {
+            path[l][h].afficher();
+        }
+        cout <<"\n\n\n";
+    }
 
     return path;
 }
