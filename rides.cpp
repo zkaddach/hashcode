@@ -210,12 +210,12 @@ vector <vector <int> > carFinder(std::vector< std::vector<Rides> > paths, int nb
         cars[i].m_time = 0;
     }
 
-    //First association
+    //Association
     int posInPaths(0), posInCars(0),compteur(0);
     for(int i = 0; i < nbCar; i++)
         results.push_back(vector <int>(1));
 
-        while(posInCars < nbCar && posInPaths < paths.size())
+        while(posInPaths < paths.size())
         {
             if(cars[posInCars].arriveOnTime(paths[posInPaths][compteur]))
             {
@@ -247,31 +247,20 @@ vector <vector <int> > carFinder(std::vector< std::vector<Rides> > paths, int nb
             notAffected[i].afficher();
             cout << endl;
         }
+        cout << notAffected.size() << endl;
 
-
-//------------------------------------------------
+//Not Affectation association
 /*
-    for(posInPaths = 0; posInPaths < nbCar ; posInPaths++)
+    int posInNotAffected(0);
+    for(posInCars = 0, posInCars < nbCar; posInCars++)
     {
-        results.push_back(vector<int>(1));
-        if(posInPaths < paths.size())
-            results[posInPaths][0]= paths[posInPaths].size();
-        else
-            results[posInPaths][0]= 0;
-    }
-    posInPaths = 0;
-
-    int indice_chemin = 0;
-    //First car association
-    for(int i = 0; i < paths.size(); i++)
-    {
-        for(int j = 0; j < paths[i].size(); j++)
+        if(cars[posInCars].arriveOnTime(notAffected[posInNotAffected]))
         {
-            results[i].push_back(paths[i][j].m_i);
+            results[posInCars].push_back(notAffected[posInNotAffected][j].m_i);
+            posInNotAffected++;
+            po
         }
-    }
-*/
-//----------------------------------------------------------------
+    }*/
 
     //Printing results
 /*

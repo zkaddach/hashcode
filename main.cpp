@@ -4,7 +4,7 @@ using namespace std;
 
 int main()
 {
-    string adr_file = "b_should_be_easy.in";
+    string adr_file = "c_no_hurry.in";
     ifstream file(adr_file.c_str());
 
     //Loading header
