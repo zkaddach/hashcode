@@ -220,7 +220,7 @@ vector <vector <int> > carFinder(std::vector< std::vector<Rides> > paths, int nb
             if(cars[posInCars].arriveOnTime(paths[posInPaths][0]))
             {
 
-                results[posInCars].push_back(paths[posInPaths].size());
+                results[posInCars][0] = (paths[posInPaths].size());
 
                 for(int j = 0; j < paths[posInPaths].size(); j++)
                 {
