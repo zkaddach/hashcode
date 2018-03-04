@@ -30,7 +30,7 @@ int main()
 
     //Calling carFinder
     vector <vector<int> > results;
-    results = carFinder(paths, vehicles);
+    //results = carFinder(paths, vehicles);
 
     //Printing in File
     ofstream output("results.txt");

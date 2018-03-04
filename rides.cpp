@@ -207,14 +207,16 @@ vector <vector <int> > carFinder(std::vector< std::vector<Rides> > paths, int nb
 
     //First association
     int posInPaths(0), posInCars(0);
-
+    /*
         while(posInCars < nbCar && posInPaths < paths.size())
         {
             if(cars[posInCars].arriveOnTime(paths[posInPaths][0]))
             {
+
                 results.push_back(vector <int> (1));
-                results[posInCars].push_back(paths[posInPaths].size());
-                for(int j = 0; j < paths[posInPaths].size(); j++)
+                //results[posInCars].push_back(paths[posInPaths].size());
+
+                /*for(int j = 0; j < paths[posInPaths].size(); j++)
                 {
                     results[posInCars].push_back(paths[posInPaths][j].m_i);
                 }
@@ -226,10 +228,10 @@ vector <vector <int> > carFinder(std::vector< std::vector<Rides> > paths, int nb
             {
                 posInPaths++;
             }
-        }
+        }*/
 
 //------------------------------------------------
-
+/*
     for(posInPaths = 0; posInPaths < nbCar ; posInPaths++)
     {
         results.push_back(vector<int>(1));
@@ -249,7 +251,7 @@ vector <vector <int> > carFinder(std::vector< std::vector<Rides> > paths, int nb
             results[i].push_back(paths[i][j].m_i);
         }
     }
-
+*/
 //----------------------------------------------------------------
     //Printing results
     for(int i = 0; i < nbCar; i++)
