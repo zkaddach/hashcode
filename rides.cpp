@@ -198,7 +198,7 @@ vector< vector<Rides> > pathFinding(vector<Rides> tabRides, int limTemps, int ri
 {
     sortRides(tabRides, 0 , rides-1);
     vector< vector<Rides> > paths;
-    int id_paths(0), id_rides(0);
+    int id_paths(0), id_rides(0), past_time(0);
     Rides head;
     while(tabRides.size() > 0)
     {
@@ -207,8 +207,10 @@ vector< vector<Rides> > pathFinding(vector<Rides> tabRides, int limTemps, int ri
         paths[id_paths][0] = tabRides[0];
         head = tabRides[0];
         tabRides.erase(tabRides.begin());
+        past_time = head.m_a + head.m_b;
         for(int i = 0; i < tabRides.size(); i++)
         {
+            past_time += head.m_distance;
             if(inInterval(head.m_finish+distanceRides(head,tabRides[i]), tabRides[i].m_earliest, tabRides[i].m_lastStart))
             {
                 id_rides++;
@@ -219,7 +221,21 @@ vector< vector<Rides> > pathFinding(vector<Rides> tabRides, int limTemps, int ri
                 head = tabRides[i];
                 tabRides.erase(tabRides.begin() + i);
                 i = 0;
+                past_time += distanceRides(head,tabRides[i]);
             }
+            else if(inInterval(past_time+distanceRides(head,tabRides[i]), tabRides[i].m_earliest, tabRides[i].m_lastStart))
+            {
+                id_rides++;
+                if(id_rides == 0)
+                    paths[id_paths][id_rides] = tabRides[i];
+                else
+                    paths[id_paths].push_back(tabRides[i]);
+                head = tabRides[i];
+                tabRides.erase(tabRides.begin() + i);
+                i = 0;
+                past_time += distanceRides(head,tabRides[i]);
+            }
+
         }
         id_paths++;
     }
